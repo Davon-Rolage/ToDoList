@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do list</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="todo-app">
+            <h2>To-do List <img src="{{ url_for('static', filename='images/icon.png') }}"></h2>
+            <form id="form" action="/" class="row" method="POST">
+                <input type="text" id="input-box" name="task" placeholder="Add new task:">
+                <button type="submit" class="btn_add" value="Add">Add</button>
+            </form>
+            <form id="form-delete" action="delete_all" method="POST">
+                <input type="submit" class="btn_delete_all" value="Delete All" onclick="return confirm('Are you sure you want to delete ALL records?')">
+            </form>
+            <ul id="list-container">
+                {% for task in tasks %}
+                    <li id="{{ task.0 }}" class="{% if task.2 %}checked{% endif %}">{{ task.1 }} <span class="delete-btn">X</span></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
