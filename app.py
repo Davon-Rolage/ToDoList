@@ -38,11 +38,21 @@ def index():
     return render_template("index.html", tasks=tasks)
 
 
-@app.route("/delete/<int:id>", methods=["POST"])
+@app.route("/delete_task/<int:id>", methods=["POST"])
 def delete(id):
     connection = sqlite3.connect(current_dir + "/todo_app.db")
     cursor = connection.cursor()
     query = "DELETE FROM tasks WHERE id = {id}".format(id=id)
+    cursor.execute(query)
+    connection.commit()
+    return redirect("/")
+
+
+@app.route("/delete_checked", methods=["POST"])
+def delete_checked():
+    connection = sqlite3.connect(current_dir + "/todo_app.db")
+    cursor = connection.cursor()
+    query = "DELETE FROM tasks WHERE checked = 1"
     cursor.execute(query)
     connection.commit()
     return redirect("/")
