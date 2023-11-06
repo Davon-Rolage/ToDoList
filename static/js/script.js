@@ -42,10 +42,10 @@ $(".delete-x").click(function(e) {
 
 // Delete task hover effect
 $(".delete-x").hover(function(e) {
-    const task = $(e.target.parentNode.parentNode).find(".task");
+    const task = $(e.target.parentNode.parentNode).find(".task-text");
     task.css("background-color", "rgba(255, 0, 0, 0.25)");
 }, function(e) {
-    const task = $(e.target.parentNode.parentNode).find(".task");
+    const task = $(e.target.parentNode.parentNode).find(".task-text");
     task.css("background-color", "");
 })
 
