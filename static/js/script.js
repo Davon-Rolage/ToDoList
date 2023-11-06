@@ -1,3 +1,4 @@
+// Add a task if the input box is not empty
 $("#form-add").submit(function(e) {
     e.preventDefault();
     const inputValue = $("#input-box").val().replace(/\s/g, "");
@@ -9,18 +10,24 @@ $("#form-add").submit(function(e) {
     }
 })
 
-$(".task").click(function(e) {
-    const taskId = $(this).closest(".task").attr("id");
-    $(this).closest(".task").toggleClass("checked");
-    fetch(`/toggle_check/${taskId}`, { method: 'POST' });
+// Toggle checked/unchecked
+$(".task-text, .task-img").click(function() {
+    const taskId = this.id;
+    fetch(`/toggle_check/${taskId}`, { method: 'POST' })
     
-    if ($(this).hasClass("checked")) {
-        $(this).find("img").attr("src", "../static/images/checked.png");
-    } else {
-        $(this).find("img").attr("src", "../static/images/unchecked.png");
-    }
-});
+    const task = $(this).parent();
+    const taskText = task.find(".task-text");
+    const checkedImage = task.find(".task-img").find("img");
 
+    taskText.toggleClass("checked");
+    if (taskText.hasClass("checked")) {
+        checkedImage.attr("src", "../static/images/checked.png");
+    } else {
+        checkedImage.attr("src", "../static/images/unchecked.png");
+    }
+})
+
+// Delete task
 $(".delete-x").click(function(e) {
     const taskId = e.target.id;
     fetch(`/delete_task/${taskId}`, { method: 'POST' })
@@ -33,6 +40,7 @@ $(".delete-x").click(function(e) {
         })
 });
 
+// Delete task hover effect
 $(".delete-x").hover(function(e) {
     const task = $(e.target.parentNode.parentNode).find(".task");
     task.css("background-color", "rgba(255, 0, 0, 0.25)");
@@ -41,10 +49,7 @@ $(".delete-x").hover(function(e) {
     task.css("background-color", "");
 })
 
-$(document).ready(function() {
-    $("#input-box").focus();
-})
-
+// Delete all tasks if any
 $("#form-delete-all").submit(function(e) {
     e.preventDefault();
     const numTasks = $("#list-container").children().length;
@@ -57,6 +62,7 @@ $("#form-delete-all").submit(function(e) {
     }
 });
 
+// Delete checked tasks if any
 $("#form-delete-checked").submit(function(e) {
     e.preventDefault();
     const numChecked = $("#list-container").children().find(".checked").length;
@@ -67,4 +73,9 @@ $("#form-delete-checked").submit(function(e) {
             e.target.submit();
         }
     }
+})
+
+// Focus on input box when page loads
+$(document).ready(function() {
+    $("#input-box").focus();
 })

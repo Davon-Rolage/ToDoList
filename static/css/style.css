@@ -5,6 +5,12 @@
 body {
     min-height: 100vh;
     background: linear-gradient(135deg, #153677, #4e085f);
+    background-repeat: no-repeat;
+}
+
+.container-wrapper {
+    min-height: 100vh;
+    position: relative;
 }
 
 .container-todo {
@@ -21,13 +27,13 @@ body {
     border-radius: 10px;
 }
 
-.task {
+.task-text {
     color: #edeef0;
     cursor: pointer;
     border-radius: 8px;
 }
 
-.task:hover {
+.task-text:hover {
     background-color: rgba(0, 0, 0, 0.08);
 }
 
@@ -40,15 +46,16 @@ body {
     background-position: center;
 }
 
-.checked {
+.checked span {
     color: #ffb94b;
     text-decoration: line-through;
+}
+.task-img .checked img {
+    background-image: url(../images/checked.png);
 }
 
 .delete-x {
     display: block;
-    width: 60px;
-    height: 40px;
     font-size: 22px;
     color: #ff3d3d;
     line-height: 40px;
@@ -63,11 +70,20 @@ body {
 }
 
 footer {
+    position: absolute;
+    bottom: 0;
+    width: 97%;
     color: aliceblue;
-    margin-top: auto;
+    border-top-style: solid;
+    border-top-color: aliceblue;
+    border-top-width: 1px;
 }
 
 footer a {
     text-decoration: none;
+    color: inherit;
+}
+footer a:hover {
+    text-decoration: underline;
     color: inherit;
 }

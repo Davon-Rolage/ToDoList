@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-do list</title>
+    <title>TDL</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.png') }}">
@@ -13,72 +13,83 @@
 
 </head>
 <body>
-    <div class="container-todo p-4">
+    <div class="container-wrapper">
+        <div class="container-todo p-4">
 
-        <!-- Logo -->
-        <div class="row">
-            <div class="col-auto">
-                <img class="logo-tdl"src="{{ url_for('static', filename='images/logo.png') }}">
-            </div>
-        </div>
-
-        <form id="form-add" action="/" method="POST">
-            <div class="row py-3 justify-content-between">
-
-                <!-- Input box -->
-                <div class="col">
-                    <input class="form-control border shadow-none py-2" type="text" id="input-box" name="task" placeholder="Add new task:">
-                </div>
-                
-                <!-- Add task button -->
+            <!-- Logo -->
+            <div class="row">
                 <div class="col-auto">
-                    <button class="btn btn-success shadow-none px-4">Add</button>
+                    <img class="logo-tdl"src="{{ url_for('static', filename='images/logo.png') }}">
                 </div>
-                    
-            </div> 
-        </form>
-            
-        <div class="row">
-            <div class="col-auto">
-                <!-- Delete all tasks -->
-                <form id="form-delete-all" action="delete_all" method="POST">
-                    <input type="submit" class="btn btn-outline-danger shadow-none" value="Delete All">
-                </form>
             </div>
 
-            <div class="col-auto">
-                <!-- Delete checked tasks -->
-                <form id="form-delete-checked" action="delete_checked" method="POST">
-                    <input type="submit" class="btn btn-outline-warning shadow-none" value="Delete Checked">
-                </form>
-            </div>
-        </div>
+            <form id="form-add" action="/" method="POST">
+                <div class="row py-3 justify-content-between">
 
-        <!-- List of tasks -->
-        <div class="row p-3">
-            <div id="list-container">
-                {% for task in tasks %}
-                    <div class="row align-items-center">
-
-                        <div class="col-auto">
-                            <span class="delete-x text-center" id="{{ task.0 }}">X</span>
-                        </div>
-                        
-                        <div class="task col-9 py-2 text-end {% if task.2 %}checked{% endif %}" id="{{ task.0 }}">
-                            <span class="px-3">{{ task.1 }}</span>{% if task.2 %}<img class="checkbox" src="{{ url_for('static', filename='images/checked.png') }}" alt="">
-                            {% else %}<img class="checkbox" src="{{ url_for('static', filename='images/unchecked.png') }}" alt="">
-                            {% endif %}
-                        </div>
+                    <!-- Input box -->
+                    <div class="col">
+                        <input class="form-control border shadow-none py-2" type="text" id="input-box" name="task" placeholder="Add new task:">
                     </div>
-                {% endfor %}
+                    
+                    <!-- Add task button -->
+                    <div class="col-auto">
+                        <button class="btn btn-success shadow-none px-4">Add</button>
+                    </div>
+                        
+                </div> 
+            </form>
+                
+            <div class="row">
+                <div class="col-auto">
+                    <!-- Delete all tasks button -->
+                    <form id="form-delete-all" action="delete_all" method="POST">
+                        <input type="submit" class="btn btn-outline-danger shadow-none" value="Delete All">
+                    </form>
+                </div>
+
+                <div class="col-auto">
+                    <!-- Delete checked tasks button -->
+                    <form id="form-delete-checked" action="delete_checked" method="POST">
+                        <input type="submit" class="btn btn-outline-warning shadow-none" value="Delete Checked">
+                    </form>
+                </div>
+            </div>
+
+            <!-- List of tasks -->
+            <div class="row p-3 mb-5">
+                <div id="list-container">
+                    {% for task in tasks %}
+                        <div class="row align-items-center justify-content-between">
+
+                            <!-- Delete task X -->
+                            <div class="col-1">
+                                <span class="delete-x text-center" id="{{ task.0 }}">X</span>
+                            </div>
+                            
+                            <!-- Task text -->
+                            <div class="task-text col-9 py-2 text-end {% if task.2 %}checked{% endif %}" id="{{ task.0 }}">
+                                <span class="pl-3">{{ task.1 }}</span>
+                            </div>
+
+                            <!-- Checkbox -->
+                            <div class="task-img col-1 px-0" id="{{ task.0 }}">
+                                {% if task.2 %}
+                                    <img class="checkbox" src="{{ url_for('static', filename='images/checked.png') }}" alt="">
+                                {% else %}
+                                    <img class="checkbox" src="{{ url_for('static', filename='images/unchecked.png') }}" alt="">
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
 
+        <footer class="ps-3 pt-3 ms-3">
+            <p>&copy; 2023 TDL, <a href="https://newa.fun" target="_blank">Newa Fun</a>. All Rights Reserved</p>
+        </footer>
     </div>
-
-    <footer class="mx-3 py-3 border-top">
-        <p class="col-auto mb-0">&copy; 2023 TDL, <a href="https://newa.fun" target="_blank">Newa Fun</a>. All Rights Reserved</p>
-    </footer>
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
